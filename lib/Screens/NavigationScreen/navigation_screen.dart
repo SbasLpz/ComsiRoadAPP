@@ -1,3 +1,4 @@
+import 'package:app_rutas_comsi/Screens/AlertasScreen/alertas_screen.dart';
 import 'package:app_rutas_comsi/Screens/MapScreen/map_screen.dart';
 import 'package:app_rutas_comsi/Screens/NavigationScreen/navigation_manager.dart';
 import 'package:app_rutas_comsi/Screens/UnitsScreen/units_screen.dart';

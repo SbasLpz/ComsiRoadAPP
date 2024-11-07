@@ -22,7 +22,8 @@ class UnitsScreen extends StatefulWidget {
 
 class _UnitsScreenState extends State<UnitsScreen> {
 
-  Future<List<UnitModel>>? _unitsFuture;
+  //Future<List<UnitModel>>? _unitsFuture;
+  dynamic _unitsFuture;
   final GlobalKey _listKey = GlobalKey();
   var id_usr = 0;
 
@@ -40,6 +41,7 @@ class _UnitsScreenState extends State<UnitsScreen> {
       id_usr = loadedId!; // Asignamos el valor obtenido
     });
     _unitsFuture = postUnits();
+
   }
 
   @override
@@ -101,19 +103,19 @@ class _UnitsScreenState extends State<UnitsScreen> {
                             return Center(
                               child: CircularProgressIndicator(),
                             );
-                          } else if (snapshot.hasData){
+                          } else if (snapshot.hasData && snapshot.data is List<UnitModel>){
                             //context.read<UnitsManager>().setOnError(false);
                             //var mydata = ordenarUnidades(snapshot.data!);
                             // if(unitsInfo.unidadesInfo.isNotEmpty) {
                             //   mydata = ordenarUnidades(unitsInfo.unidadesInfo);
                             // }
                             final unidades = unitsManager.units.isEmpty ? snapshot.data! : unitsManager.units!;
-                            unitsManager.allUnits = snapshot.data!;
+                            unitsManager.allUnits = snapshot.data! as List<UnitModel>;
 
                             //unitsManager.setOnError(false);
                             //unidades = snapshot.data!;
                             //unitsManager.units = snapshot.data!;
-                            return buildUnit(unidades, context, _listKey);
+                            return buildUnit(unidades as List<UnitModel>, context, _listKey);
                           } else if (snapshot.hasError){
                             //unitsManager.setOnError(true);
                             return Column(
@@ -150,7 +152,7 @@ class _UnitsScreenState extends State<UnitsScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text("Error desconocido"),
+                                  Text("Error desconocido: ${snapshot.data}"),
                                   Image.asset(
                                     'assets/images/error.png',
                                     width: 200,
@@ -166,7 +168,6 @@ class _UnitsScreenState extends State<UnitsScreen> {
                                   //       leading: Icon(Icons.map_outlined),
                                   //     )
                                   // ),
-                                  Text("HOLAAAAAAAAAAAAA")
                                 ],
                               ),
                             );

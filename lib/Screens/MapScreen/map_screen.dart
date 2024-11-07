@@ -1,12 +1,15 @@
 import 'package:app_rutas_comsi/Models/unit_model.dart';
 import 'package:app_rutas_comsi/Screens/UnitsScreen/units_manager.dart';
 import 'package:app_rutas_comsi/Service/comsi_api.dart';
+import 'package:app_rutas_comsi/Widgets/info_item.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:intl/intl.dart';
 
+import '../../Utils/global_context.dart';
 import '../UnitsScreen/units_screen.dart';
 import 'map_manager.dart';
 
@@ -28,7 +31,15 @@ class _MapScreenState extends State<MapScreen> {
   void initState() {
     // TODO: implement initState
     _loadUserId();
+    mapManager.intervalUpdates();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    mapManager.stopTimer = true;
+    super.dispose();
   }
 
   Future<void> _loadUserId() async {
@@ -43,20 +54,20 @@ class _MapScreenState extends State<MapScreen> {
   Widget build(BuildContext context) {
     final unitsManager = context.watch<UnitsManager>();
     unidades = Set<int>.from(unitsManager.selectedIds);
-    unidades.forEach((unit){
-      print("Unidad con ID: ${unit}");
-    });
+    // unidades.forEach((unit){
+    //   //print("Unidad con ID: ${unit}");
+    // });
     final mapManager = context.watch<MapManager>();
 
     return Scaffold(
       body: FutureBuilder(
-          future: postUnits(),
+          future: myUnitsPost,
           builder: (context, snapshot) {
             if(snapshot.connectionState == ConnectionState.waiting) {
               return Center(
                 child: CircularProgressIndicator(),
               );
-            } else if(snapshot.hasData) {
+            } else if(snapshot.hasData && snapshot.data is List<UnitModel>) {
               List<UnitModel> defData = mapManager.count == 0 ? snapshot.data! : mapManager.listUnits;
               List<UnitModel> listOfUnits = unidades.length == 0 ? defData : listaFiltrada(unidades, defData);
 
@@ -93,8 +104,17 @@ class _MapScreenState extends State<MapScreen> {
                   ]
               );
             } else {
-              return Center(
-                child: Text("Sin unidades disponibles"),
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text("Error desconocido: ${snapshot.data}"),
+                  Image.asset(
+                    'assets/images/error.png',
+                    width: 200,
+                    height: 200,
+                  ),
+                ],
               );
             }
           }

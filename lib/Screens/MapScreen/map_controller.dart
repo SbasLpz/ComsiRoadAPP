@@ -1,6 +1,7 @@
 part of 'map_screen.dart';
 
 UnitsManager theUnitsManager = UnitsManager();
+MapManager mapManager = MapManager();
 
 List<UnitModel> listaFiltrada(Set<int> unidades, List<UnitModel> lista) {
   List<UnitModel> filterList = [];
@@ -28,6 +29,7 @@ List<Marker> listToMarkerList(List<UnitModel> lista) {
         onTap: () {
           print("Buenas tardes -");
           //showMiDialog(loca);
+          showInfoDialog(loca);
         },
         child: Image.asset('assets/images/truck2.png'),
       ),
@@ -39,4 +41,26 @@ List<Marker> listToMarkerList(List<UnitModel> lista) {
 
   print("OOPPAA --- /////");
   return markerList;
+}
+
+String convertDateFormat(String date) {
+  // Define el formato de la fecha original y el formato deseado
+  DateFormat originalFormat = DateFormat('MM-dd-yy hh:mm a');
+  DateFormat desiredFormat = DateFormat('dd-MM-yy hh:mm a');
+
+  // Parsear la fecha original y formatearla en el nuevo formato
+  DateTime dateTime = originalFormat.parse(date);
+  return desiredFormat.format(dateTime);
+}
+
+showInfoDialog(UnitModel unidad) {
+  print("InfoDialog Unidad.ID = ${unidad.id}");
+  showDialog(
+      context: GlobalContext.navKey.currentContext!,
+      builder: (BuildContext context) => Dialog(
+        child: SizedBox(
+          child: infoItem(unidad, context),
+        ),
+      )
+  );
 }

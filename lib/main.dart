@@ -1,3 +1,4 @@
+import 'package:app_rutas_comsi/Screens/AlertasScreen/alertas_manager.dart';
 import 'package:app_rutas_comsi/Screens/LogInScreen/login_screen.dart';
 import 'package:app_rutas_comsi/Screens/MapScreen/map_manager.dart';
 import 'package:app_rutas_comsi/Screens/NavigationScreen/navigation_manager.dart';
@@ -31,6 +32,9 @@ class _MyAppState extends State<MyApp> {
         ),
         provider.ChangeNotifierProvider(
             create: (context) => MapManager()
+        ),
+        provider.ChangeNotifierProvider(
+            create: (context) => AlertasManager()
         )
       ],
       child: MaterialApp(

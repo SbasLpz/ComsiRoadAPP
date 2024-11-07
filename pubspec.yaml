@@ -44,6 +44,7 @@ dev_dependencies:
   provider: ^6.1.2
   url_launcher: ^6.3.0
   shared_preferences: ^2.3.2
+  flutter_map_marker_popup: ^7.0.0
   flutter_test:
     sdk: flutter
 
@@ -72,6 +73,8 @@ flutter:
     - assets/images/error.png
     - assets/images/truck.png
     - assets/images/truck2.png
+    - assets/images/downgris1.png
+    - assets/images/no_imbox.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:
