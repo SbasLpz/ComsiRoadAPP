@@ -4,12 +4,17 @@ TextEditingController cuentaController = new TextEditingController();
 TextEditingController userController = new TextEditingController();
 TextEditingController passController = new TextEditingController();
 
+/** Metodo de ingresar que se encarga de validar que los campos de las credenciales no este vacios
+ * antes de ejecutar el request de la API que se encarga de validar que las credenciales sean correctas.
+ * */
 ingresar (BuildContext context) {
   if(cuentaController.text.trim() != "" && userController.text.trim() != "" && passController.text.trim() != "") {
 
     try {
+      /** request a la API para validar las credenciales */
       var res = postLogin(cuentaController.text, userController.text, passController.text);
 
+      /** Aca se maneja la respuesta de la API si fue exitosa la consulta o no*/
       res.then((data) {
         if(data is ValidationModel) {
           if(data.success!) {
@@ -56,11 +61,15 @@ ingresar (BuildContext context) {
   }
 }
 
+/** Metodo que se encarga de agregar a SharedPreferences de la app, para almcenar al ID del usuario
+ * que se usara más adelante en otros request en diferentes partes de la app.
+ * */
 shared(int id) async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   await prefs.setInt("id_usr", id);
 }
 
+/** Metodo para crear Dialog, que recibe una serie de parametros con el cuerpo de los Dialog. */
 showInfoDialog (String mTitle, String content, String mButton, BuildContext context, String asset) {
   showDialog(
       context: context,

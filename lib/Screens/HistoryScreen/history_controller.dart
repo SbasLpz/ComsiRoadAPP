@@ -24,6 +24,7 @@ Future<void> showMyPIcker (BuildContext context, int tipo) async {
 }
 
 Future<TimeOfDay?> showMyTimePicker({
+  /** Lista de parametros que utiliza el TimePickerDialog */
   required BuildContext context,
   required TimeOfDay initialTime,
   TransitionBuilder? builder,
@@ -45,6 +46,9 @@ Future<TimeOfDay?> showMyTimePicker({
 }) async {
   assert(debugCheckHasMaterialLocalizations(context));
 
+  /** Contruccion del Wideget del TimePickerDialog con la asignacion de las variables
+   * con los valores de los pramatros previamente declarados
+   * */
   final Widget dialog = TimePickerDialog(
     initialTime: initialTime,
     initialEntryMode: initialEntryMode,
@@ -70,6 +74,7 @@ Future<TimeOfDay?> showMyTimePicker({
     anchorPoint: anchorPoint,
   );
 }
+/** Metodo envcargado de revistar si la Hora de fin es previa a la de inicio */
 
 isBefore(TimeOfDay ini, TimeOfDay fin) {
 //23 < 19 = false || 19 < 23  = true
@@ -98,6 +103,9 @@ showInfoDialog (String mTitle, String content, String mButton, BuildContext cont
   );
 }
 
+/** Metodo que se encarga de validar que los datos esten correctos antes a abrir la siguiente pantalla
+ * que seria la del Mapa del historial para mostrar la ruta de la unidad.
+ * */
 consultar(BuildContext context, String id) {
   print("PreviosHour: ${validManager.previousHour}, SameDay: ${validManager.sameDay}, VALID: ${validManager.validDates}");
   if(!validManager.validDates) {
@@ -106,6 +114,9 @@ consultar(BuildContext context, String id) {
     return;
   }
 
+  /** Se convierte las fechas a un formato especifico que requerido para realizar la consulta a la API
+   * del histiral de la unidad.
+   * */
   DateTime finalDateTimeInicio = DateTime(fechaInicio.year, fechaInicio.month, fechaInicio.day, horaInicio.hour, horaInicio.minute);
   DateTime finalDateTimeFin = DateTime(fechaFin.year, fechaFin.month, fechaFin.day, horaFin.hour, horaFin.minute);
 

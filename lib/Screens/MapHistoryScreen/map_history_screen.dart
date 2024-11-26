@@ -12,6 +12,9 @@ part 'map_screen_controller.dart';
 class MapHistoryScreen extends StatefulWidget {
   const MapHistoryScreen({super.key, required this.id, required this.fechaIni, required this.fechaFin});
 
+  /** Parametros que viene desde la pantalla de historial y son necesarios para
+   * ejecutar el request a la API del historial.
+   * */
   final String id;
   final String fechaIni;
   final String fechaFin;
@@ -27,15 +30,38 @@ class _MapHistoryScreenState extends State<MapHistoryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          "Regresar",
+          style: Theme.of(context).textTheme.titleMedium,
+        ),
+        leading: Builder(
+          builder: (BuildContext context) {
+            return IconButton(
+                onPressed: (){
+                  Navigator.pop(context);
+                },
+                icon: Icon(Icons.arrow_back)
+            );
+          },
+        ),
+      ),
       body: FutureBuilder(
+        /** Request para obtener el historial de la ruta de la unidad */
         future: postHistory(widget.id, widget.fechaIni, widget.fechaFin),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
+            /** ---  Codigo cuando la consulta esta cargando --- */
             return Center(
               child: CircularProgressIndicator(),
             );
           } else if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+            /** --- Codigo para cuando la Consulta es Exitosa --- */
             final listaPuntos = snapshot.data;
+
+            /** Variable que contiene en formato LatLng el punto de inicio de la ruta
+             * para que se use de referencia al cargar el FlutterMap
+             * */
             var firstPoint = LatLng(double.parse(listaPuntos!.first.latitud!),
                 double.parse(listaPuntos!.first.longitud!));
 
@@ -57,6 +83,7 @@ class _MapHistoryScreenState extends State<MapHistoryScreen> {
                       ),
                     ],
                   ),
+                  /** Widget para crear una Polyline o la linea que une los puntos de la ruta que siguio la unidadn */
                   PolylineLayer(
                       polylines: [
                         Polyline(
@@ -67,6 +94,9 @@ class _MapHistoryScreenState extends State<MapHistoryScreen> {
                         )
                       ]
                   ),
+                  /** Widget necesario para que cuando el usuario haga Tap en alguno de los marcadores del historial
+                   * se muestre uns especia de Dialog con infmoración.
+                   * */
                   PopupMarkerLayer(
                       options: PopupMarkerLayerOptions(
                           markers: marcadores,
@@ -80,7 +110,7 @@ class _MapHistoryScreenState extends State<MapHistoryScreen> {
                                 } else {
                                   print("DATA KEY FOUND. ${data.fecha_pc}");
                                 }
-                                //return Text(data == null ? "Hola Wenas" : "Hola Wenas ${data.fecha_pc}");
+
                                 return data == null ? Text("")
                                     : HistoryItem(data: data, popupController: myPopupController,); //infoDialogHistory(data, context);
                               }
@@ -90,6 +120,7 @@ class _MapHistoryScreenState extends State<MapHistoryScreen> {
                 ]
             );
           } else {
+            /** --- Codigo para cuando la Consulta ocrriera un error --- */
             return Center(
               child: Text("No hubo ruta en esos intervalos"),
             );

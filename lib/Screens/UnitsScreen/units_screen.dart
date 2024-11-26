@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'dart:ffi';
 import 'package:app_rutas_comsi/Screens/MapScreen/map_screen.dart';
+import 'package:app_rutas_comsi/Screens/SettingsScreen/settings_screen.dart';
 import 'package:app_rutas_comsi/Screens/UnitsScreen/units_manager.dart';
+import 'package:app_rutas_comsi/Styles/theme_manager.dart';
 import 'package:provider/provider.dart';
 import 'package:app_rutas_comsi/Models/unit_model.dart';
 import 'package:app_rutas_comsi/Service/comsi_api.dart';
@@ -22,163 +24,172 @@ class UnitsScreen extends StatefulWidget {
 
 class _UnitsScreenState extends State<UnitsScreen> {
 
-  //Future<List<UnitModel>>? _unitsFuture;
+  /** variable que contendra el requestv a la API */
   dynamic _unitsFuture;
+  /** Key que identidficara a cada unidad como elementos unico */
   final GlobalKey _listKey = GlobalKey();
+  /** Variable que contiene el ID del usuario del Inicio de Sesión */
   var id_usr = 0;
 
   @override
   void initState() {
     searchController.clear();
     // TODO: implement initState
-    _loadUserId();
+    //_loadUserId();
     super.initState();
   }
 
+  /** Metodo que obtiene el ID del usuario obtenido del request del Inicio de sesión*/
   Future<void> _loadUserId() async {
     final loadedId = await loadIduser(); // Esperamos el resultado del Future
     setState(() {
       id_usr = loadedId!; // Asignamos el valor obtenido
     });
+    /** Variable que contiene request a la API para que el FutureBuilder
+     * no se reconstruya a cada rato. */
     _unitsFuture = postUnits();
 
   }
 
   @override
   Widget build(BuildContext context) {
+    /** Esta variabel contiene el Manager y detecta cualquier cambio
+     * que los listeners deban estar escuchando.
+     * */
     final unitsManager = context.watch<UnitsManager>();
-    //final navManager = context.watch<NavigationManager>();
+    final navManager = context.watch<NavigationManager>();
+
     return Scaffold(
-      body: Container(
-        color: Colors.redAccent,
-        child: ConstrainedBox(
-          constraints: BoxConstraints.expand(),
-          child: Padding(
-            padding: EdgeInsets.all(15.0),
-            child: Column(
-              children: [
-                SizedBox(height: 20,),
-                SearchBar(
-                  controller: searchController,
-                  hintText: "Buscar unidad...",
-                  onChanged: (value) {
-                    print("SEARCH new value: ${value}");
-                    context.read<UnitsManager>().search(value);
-                  },
-                ),
-                Row(
+      body: Consumer<ThemeManager>(
+        builder: (context, themeManager, child){
+          WidgetsBinding.instance.addPostFrameCallback((_){
+            setState(() {
+            });
+          });
+          return Container(
+            child: ConstrainedBox(
+              constraints: BoxConstraints.expand(),
+              child: Padding(
+                padding: EdgeInsets.all(15.0),
+                child: Column(
                   children: [
-                    Text("Seleccionar todas: "),
-                    Checkbox(
-                        value: unitsManager.isChecked,
-                        onChanged: (bool? newValue) {
-                          unitsManager.selectAll(unitsManager.units, newValue!);
-                          if (!newValue) {
-                            unitsManager.quitarSelectedUnits();
-                          }
-                        }
+                    SizedBox(height: 20,),
+                    SearchBar(
+                      controller: searchController,
+                      hintText: "Buscar unidad...",
+                      /** Metodo para obtener el valor ingresado y ejecutar el comando
+                       * de busqueda.
+                       * */
+                      onChanged: (value) {
+                        print("SEARCH new value: ${value}");
+                        context.read<UnitsManager>().search(value);
+                      },
+                    ),
+                    Row(
+                      children: [
+                        Text("Seleccionar todas: "),
+                        Checkbox(
+                            value: unitsManager.isChecked,
+                            /** Metodo que asigna true o false a variable que controla la seleccion de todas las unidades.
+                             * en True, selecciona todas en False les quita la seleccion.
+                             * */
+                            onChanged: (bool? newValue) {
+                              unitsManager.selectAll(unitsManager.units, newValue!);
+                              if (!newValue) {
+                                unitsManager.quitarSelectedUnits();
+                              }
+                            }
+                        )
+                      ],
+                    ),
+                    SizedBox(height: 10,),
+                    FilledButton(
+                      /** Botón para abrir el Mapa */
+                      onPressed: () {
+                        navManager.setIndex(1);
+                      },
+                      child: ListTile(
+                        title: Text("Ver en el mapa"),
+                        leading: Icon(Icons.map_outlined),
+                      ),
+                      style: ButtonStyle(backgroundColor: WidgetStatePropertyAll(Colors.white54)),
+                    ),
+                    SizedBox(height: 20,),
+                    Expanded(
+                        child: FutureBuilder(
+                            future: myUnitsPost,
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState == ConnectionState.waiting){
+                                /** ---  Codigo cuando la consulta esta cargando --- */
+                                return Center(
+                                  child: CircularProgressIndicator(),
+                                );
+                              } else if (snapshot.hasData && snapshot.data is List<UnitModel>){
+                                /** --- Codigo para cuando la Consulta es Exitosa --- */
+
+                                /** Unidades contiene en caso de que la lista del Manager no haya sido filtrada ni nada la lista de unidades recibida del Request
+                                 * En caso de que la lista est filtrada (El usuario busco por nombre o ID) la varible contiene esa lista units.
+                                 * */
+                                final unidades = unitsManager.units.isEmpty ? snapshot.data! : unitsManager.units!;
+                                unitsManager.allUnits = snapshot.data! as List<UnitModel>;
+
+                                /** Se manda a llamar el Widget de CardView de Widgets/unit_item.dart */
+                                return buildUnit(unidades as List<UnitModel>, context, _listKey);
+                              } else if (snapshot.hasError){
+                                /** --- Codigo para cuando la Consulta ocrriera un error --- */
+                                return Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text("- Error: ${snapshot.error}"),
+                                    Image.asset(
+                                      'assets/images/error.png',
+                                      width: 200,
+                                      height: 200,
+                                    ),
+                                    Container(
+                                      width: 200,
+                                      child: FilledButton(
+                                        //style: ButtonStyle(maximumSize: WidgetStatePropertyAll(200)),
+                                          onPressed: () {
+                                            setState(() {
+
+                                            });
+                                          },
+                                          child: ListTile(
+                                            title: Text("Recargar", style: TextStyle(),),
+                                            leading: Icon(Icons.refresh,),
+                                          )
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              } else {
+                                /** --- Codigo para cuando ocurre una Excepción u Error inesperado--- */
+                                return Container(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text("Error desconocido: ${snapshot.data}"),
+                                      Image.asset(
+                                        'assets/images/error.png',
+                                        width: 200,
+                                        height: 200,
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              }
+                            }
+                        )
                     )
                   ],
                 ),
-                SizedBox(height: 10,),
-                FilledButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => MapScreen()),
-                      );
-                    },
-                    child: ListTile(
-                      title: Text("Ver en el mapa"),
-                      leading: Icon(Icons.map_outlined),
-                    ),
-                  style: ButtonStyle(backgroundColor: WidgetStatePropertyAll(Colors.white54)),
-                ),
-                SizedBox(height: 20,),
-                Expanded(
-                    child: FutureBuilder(
-                        future: _unitsFuture,
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState == ConnectionState.waiting){
-                            return Center(
-                              child: CircularProgressIndicator(),
-                            );
-                          } else if (snapshot.hasData && snapshot.data is List<UnitModel>){
-                            //context.read<UnitsManager>().setOnError(false);
-                            //var mydata = ordenarUnidades(snapshot.data!);
-                            // if(unitsInfo.unidadesInfo.isNotEmpty) {
-                            //   mydata = ordenarUnidades(unitsInfo.unidadesInfo);
-                            // }
-                            final unidades = unitsManager.units.isEmpty ? snapshot.data! : unitsManager.units!;
-                            unitsManager.allUnits = snapshot.data! as List<UnitModel>;
-
-                            //unitsManager.setOnError(false);
-                            //unidades = snapshot.data!;
-                            //unitsManager.units = snapshot.data!;
-                            return buildUnit(unidades as List<UnitModel>, context, _listKey);
-                          } else if (snapshot.hasError){
-                            //unitsManager.setOnError(true);
-                            return Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text("- Error: ${snapshot.error}"),
-                                Image.asset(
-                                  'assets/images/error.png',
-                                  width: 200,
-                                  height: 200,
-                                ),
-                                Container(
-                                  width: 200,
-                                  child: FilledButton(
-                                    //style: ButtonStyle(maximumSize: WidgetStatePropertyAll(200)),
-                                      onPressed: () {
-                                        setState(() {
-
-                                        });
-                                      },
-                                      child: ListTile(
-                                        title: Text("Recargar", style: TextStyle(color: Colors.white),),
-                                        leading: Icon(Icons.refresh, color: Colors.white,),
-                                      )
-                                  ),
-                                ),
-                              ],
-                            );
-                          } else {
-                            //unitsManager.setOnError(true);
-                            return Container(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("Error desconocido: ${snapshot.data}"),
-                                  Image.asset(
-                                    'assets/images/error.png',
-                                    width: 200,
-                                    height: 200,
-                                  ),
-                                  // FilledButton(
-                                  //   //style: ButtonStyle(padding: WidgetStatePropertyAll(EdgeInsets.all(10.0))),
-                                  //     onPressed: () {
-                                  //
-                                  //     },
-                                  //     child: ListTile(
-                                  //       title: Text("Recargar"),
-                                  //       leading: Icon(Icons.map_outlined),
-                                  //     )
-                                  // ),
-                                ],
-                              ),
-                            );
-                          }
-                        }
-                    )
-                )
-              ],
+              ),
             ),
-          ),
-        ),
+          );
+        },
       ),
     );
   }

@@ -1,4 +1,4 @@
-package com.example.app_rutas_comsi
+package com.comsi.monitoreoapp
 
 import io.flutter.embedding.android.FlutterActivity
 

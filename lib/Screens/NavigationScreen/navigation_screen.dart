@@ -1,9 +1,12 @@
 import 'package:app_rutas_comsi/Screens/AlertasScreen/alertas_screen.dart';
 import 'package:app_rutas_comsi/Screens/MapScreen/map_screen.dart';
 import 'package:app_rutas_comsi/Screens/NavigationScreen/navigation_manager.dart';
+import 'package:app_rutas_comsi/Screens/SettingsScreen/settings_screen.dart';
 import 'package:app_rutas_comsi/Screens/UnitsScreen/units_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../../Styles/theme.dart';
 
 part 'navigation_controller.dart';
 
@@ -17,16 +20,26 @@ class NavigationScreen extends StatefulWidget {
 class _NavigationScreenState extends State<NavigationScreen> {
   @override
   Widget build(BuildContext context) {
+    /** Esta variabel contiene el Manager y detecta cualquier cambio
+     * que los listeners deban estar escuchando.
+     * */
     final navManager = context.watch<NavigationManager>();
 
     return Scaffold(
       bottomNavigationBar: NavigationBar(
+        /** Metodo que cambia el indice de la lista de Pantallas
+         * cuando el usuario hace Tap en algun destino de NavigationBar.
+         * */
         onDestinationSelected: (int index) {
           setState(() {
             navManager.setIndex(index);
           });
         },
+        /** Se asgina la variable del Manager */
         selectedIndex: navManager.currentPageIndexNavBar0,
+        /** En destinations se crean los iconos y nombre de cada campo u opción
+         * del Navigation Bar.
+         * */
         destinations: <Widget>[
           NavigationDestination(
               icon: Icon(Icons.format_list_bulleted_sharp),
@@ -47,7 +60,9 @@ class _NavigationScreenState extends State<NavigationScreen> {
         ],
       ),
       body: Center(
-        //child: Text("Pantalla de Unidades. ID USER: ${widget.id_usr}"),
+        /** Acá se declara la variable que controlara el cambio de Pantallas,
+         * en este caso la variable creada en el Manager, es indispensable esta declaración.
+         * */
         child: navbarOpciones[navManager.currentPageIndexNavBar0],
       ),
     );

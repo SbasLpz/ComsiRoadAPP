@@ -18,6 +18,7 @@ Widget buildAlertItem(List<AlertModel> alerts, BuildContext context) {
         onTap: () {
 
         },
+        /** Necesario para el evento de cuando el usuario deslice hacia un lado la alerta para eliminarla. */
         child: Dismissible(
           key: ValueKey(alert.id_log),
           direction: DismissDirection.startToEnd,
@@ -33,6 +34,9 @@ Widget buildAlertItem(List<AlertModel> alerts, BuildContext context) {
                 borderRadius: BorderRadius.circular(20),
               ),
               //backgroundColor: Theme.of(context).colorScheme.primary,
+              /** En ete title del ExpansionTile se muestra la infomración que vera el usuario de las alertas
+               * cuando NO les de Tap para desplegar el ExpansionTale, es decir lo que se ve cuando este esta contraido.
+               * */
               title: Padding(
                 padding: const EdgeInsets.fromLTRB(0, 15.0, 0, 15.0),
                 child: Row(
@@ -66,6 +70,9 @@ Widget buildAlertItem(List<AlertModel> alerts, BuildContext context) {
                   ],
                 ),
               ),
+              /** Aca se muestra los Widget con la infromacion que se mostrara cuando el usuario de Tap al ExpansionTile
+               * y lo despliegue.
+               * */
               children: [
                 Container(
                   color: Theme.of(context).colorScheme.inversePrimary,

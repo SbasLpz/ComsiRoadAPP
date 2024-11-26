@@ -1,13 +1,25 @@
 import 'package:app_rutas_comsi/Screens/AlertasScreen/alertas_manager.dart';
+import 'package:app_rutas_comsi/Screens/CommandScreen/command_manager.dart';
 import 'package:app_rutas_comsi/Screens/LogInScreen/login_screen.dart';
 import 'package:app_rutas_comsi/Screens/MapScreen/map_manager.dart';
 import 'package:app_rutas_comsi/Screens/NavigationScreen/navigation_manager.dart';
+import 'package:app_rutas_comsi/Screens/SettingsScreen/settings_screen.dart';
 import 'package:app_rutas_comsi/Screens/UnitsScreen/units_manager.dart';
+import 'package:app_rutas_comsi/Styles/theme_manager.dart';
 import 'package:app_rutas_comsi/Utils/global_context.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
+import 'package:upgrader/upgrader.dart';
 import 'package:provider/provider.dart' as provider;
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp();
+  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
+
+  await themeManager.loadThemeMode();
   runApp(const MyApp());
 }
 
@@ -35,13 +47,26 @@ class _MyAppState extends State<MyApp> {
         ),
         provider.ChangeNotifierProvider(
             create: (context) => AlertasManager()
+        ),
+        provider.ChangeNotifierProvider(
+            create: (context) => ThemeManager()
+        ),
+        provider.ChangeNotifierProvider(
+            create: (context) => CommandManager()
         )
       ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        navigatorKey: GlobalContext.navKey,
-        themeMode: ThemeMode.light,
-        home: LoginScreen(),
+      child: provider.Consumer<ThemeManager>(
+        builder: (context, themeProvider, child){
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            navigatorKey: GlobalContext.navKey,
+            theme: themeProvider.attrs.myColors,
+            themeMode: ThemeMode.light,
+            home: UpgradeAlert(
+              child: LoginScreen()
+            ),
+          );
+        },
       ),
     );
   }

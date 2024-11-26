@@ -3,11 +3,12 @@ part of 'map_screen.dart';
 UnitsManager theUnitsManager = UnitsManager();
 MapManager mapManager = MapManager();
 
+/** Metodo que toma los ID del Set de unidades seleccionadas y buscas por ID esas unidades y las retorna */
 List<UnitModel> listaFiltrada(Set<int> unidades, List<UnitModel> lista) {
   List<UnitModel> filterList = [];
 
   lista.forEach((UnitModel unit) {
-    if(unidades.contains(unit.id_reporte!)) {
+    if(unidades.contains(int.parse(unit.id_gps!))) {
       filterList.add(unit);
     }
   });
@@ -15,6 +16,9 @@ List<UnitModel> listaFiltrada(Set<int> unidades, List<UnitModel> lista) {
   return filterList;
 }
 
+/** Metodo que toma una lista de unidades y las convierte en Marcadores.
+ * Recorre la lista obtiene de cada unida su Latitud y Longitud, y cre un Marcador.
+ * */
 List<Marker> listToMarkerList(List<UnitModel> lista) {
   List<Marker> markerList = [];
 
@@ -27,8 +31,9 @@ List<Marker> listToMarkerList(List<UnitModel> lista) {
       height: 30,
       child: GestureDetector(
         onTap: () {
-          print("Buenas tardes -");
-          //showMiDialog(loca);
+          /** Metodo que mostrara un Dialog con acciones cuando el usuario le presione
+           * a un Marcador.
+           * */
           showInfoDialog(loca);
         },
         child: Image.asset('assets/images/truck2.png'),
@@ -43,6 +48,7 @@ List<Marker> listToMarkerList(List<UnitModel> lista) {
   return markerList;
 }
 
+/** Metodo que converte un String de un Fecha a un fomrato valido */
 String convertDateFormat(String date) {
   // Define el formato de la fecha original y el formato deseado
   DateFormat originalFormat = DateFormat('MM-dd-yy hh:mm a');
@@ -53,6 +59,10 @@ String convertDateFormat(String date) {
   return desiredFormat.format(dateTime);
 }
 
+/** Metodo que muestra y carga un Dialog en su Builder se manda llamar un Widget
+ * con la estructura que tendra este Dialog este se encuentra en
+ * Widgets/info_item.dart
+ * */
 showInfoDialog(UnitModel unidad) {
   print("InfoDialog Unidad.ID = ${unidad.id}");
   showDialog(

@@ -2,11 +2,17 @@ part of 'map_history_screen.dart';
 
 LatLng puntoInicio = LatLng(0, 0);
 LatLng puntoFinal = LatLng(0, 0);
+/** Lista que contiene la lista de todos los marcadores cerados de los puntos por lo que paso la unidad en el Mapa */
 List<Marker> marcadores = [];
+
 final MapController mpController = MapController();
 
+/** */
 Map<Marker, HistoryModel> markersDataMap = {};
 
+/** Metodo para crear o convertir la lista de Puntos de la unidad en obtejots LatLng
+ * para crear el Polyline
+ * */
 List<LatLng> pointsToPoly(List<HistoryModel> lista) {
   List<LatLng> puntos = [];
 
@@ -23,6 +29,7 @@ List<LatLng> pointsToPoly(List<HistoryModel> lista) {
   puntoInicio = puntos.first;
   puntoFinal = puntos.last;
 
+  /** De crolor ver esta el marcador donde comenzo la ruta y de rojo el marcador de final */
   toMarker(puntoInicio, Icon(Icons.location_on, color: Colors.green, size: 40,));
   toMarker(puntoFinal, Icon(Icons.location_on, color: Colors.redAccent, size: 40));
 
@@ -31,6 +38,7 @@ List<LatLng> pointsToPoly(List<HistoryModel> lista) {
   return puntos;
 }
 
+/** Metodo para crea un marcador del el FlutterMap, con su coordenadas y su rewspectivo icono */
 toMarker(LatLng punto, Icon icono) {
   var marker = Marker(
       point: punto,
@@ -41,6 +49,10 @@ toMarker(LatLng punto, Icon icono) {
 
   marcadores.add(marker);
 }
+
+/** Metodo para crea un marcador del el FlutterMap, con su coordenadas y su rewspectivo icono
+ * con un parametro extra para pasarle tambien datos del punto que pueden ser mostrados en el Dialog desplegable
+ * */
 
 toMarkerDet (LatLng punto, Icon icono, HistoryModel data) {
   var marker = Marker(

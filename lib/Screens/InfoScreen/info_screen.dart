@@ -1,6 +1,19 @@
 import 'package:app_rutas_comsi/Models/unit_model.dart';
+import 'package:app_rutas_comsi/Screens/HistoryScreen/history_screen.dart';
+import 'package:app_rutas_comsi/Screens/HistoryScreen/history_screen.dart';
+import 'package:app_rutas_comsi/Screens/HistoryScreen/history_screen.dart';
+import 'package:app_rutas_comsi/Screens/HistoryScreen/history_screen.dart';
+import 'package:app_rutas_comsi/Screens/HistoryScreen/history_screen.dart';
+import 'package:app_rutas_comsi/Screens/HistoryScreen/history_screen.dart';
+import 'package:app_rutas_comsi/Screens/HistoryScreen/history_screen.dart';
+import 'package:app_rutas_comsi/Screens/HistoryScreen/history_screen.dart';
+import 'package:app_rutas_comsi/Screens/HistoryScreen/history_screen.dart';
+import 'package:app_rutas_comsi/Screens/HistoryScreen/history_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import '../../Styles/theme.dart';
+import '../SettingsScreen/settings_screen.dart';
 
 part 'info_controller.dart';
 
@@ -28,10 +41,11 @@ class _InfoScreenState extends State<InfoScreen> {
         child: Column(
           children: [
             Container(
-              color: Colors.redAccent,
+              color: themeManager.isDarkMode ? COLOR_2 : Colors.redAccent,
               width: double.maxFinite,
               child: Text(
                 "Detalles de la Unidad",
+                style: txtTheme.titleSmall!.copyWith(fontSize: 22),
                 textAlign: TextAlign.center,
               ),
             ),
@@ -40,6 +54,7 @@ class _InfoScreenState extends State<InfoScreen> {
             ),
             Text(
               widget.unidad.desc!,
+              style: txtTheme.titleSmall!.copyWith(fontSize: 18),
               textAlign: TextAlign.center,
             ),
             SizedBox(
@@ -47,10 +62,11 @@ class _InfoScreenState extends State<InfoScreen> {
             ),
             Text(
               "Visualización de todos los datos especificos de la unidad.",
+              style: txtTheme.titleSmall!,
               textAlign: TextAlign.center,
             ),
             SizedBox(
-              height: 15,
+              height: 25,
             ),
             FittedBox(
               child: DataTable(
@@ -81,175 +97,175 @@ class _InfoScreenState extends State<InfoScreen> {
                   rows: [
                     DataRow(
                         cells: [
-                          DataCell(Icon(Icons.car_crash)),
+                          DataCell(Icon(Icons.car_crash, color: Theme.of(context).colorScheme.onPrimary)),
                           DataCell(
-                            Text("ID Vehiculo", style: TextStyle(fontWeight: FontWeight.bold, fontSize: tam),)
+                            Text("ID Vehiculo", style: txtTheme.titleSmall!.copyWith(fontWeight: FontWeight.bold, fontSize: tam),)
                           ),
                           DataCell(
-                            Text("id_vehiculo", style: TextStyle(fontSize: tam))
+                            Text("id_vehiculo", style: txtTheme.titleSmall!.copyWith(fontSize: tam))
                           ),
                           DataCell(
-                            Text(widget.unidad.id!, style: TextStyle(fontSize: tam))
+                            Text(widget.unidad.id!, style: txtTheme.titleSmall!.copyWith(fontSize: tam))
                           )
                         ]
                     ),
                     DataRow(
                         cells: [
                           DataCell(
-                              Icon(Icons.developer_board,)
+                              Icon(Icons.developer_board, color: Theme.of(context).colorScheme.onPrimary)
                           ),
                           DataCell(
-                              Text("ID GPS", style: TextStyle(fontWeight: FontWeight.bold, fontSize: tam),)
+                              Text("ID GPS", style: txtTheme.titleSmall!.copyWith(fontWeight: FontWeight.bold, fontSize: tam),)
                           ),
                           DataCell(
-                              Text("id_gps", style: TextStyle(fontSize: tam))
+                              Text("id_gps", style: txtTheme.titleSmall!.copyWith(fontSize: tam))
                           ),
                           DataCell(
-                              Text(widget.unidad.id_gps!, style: TextStyle(fontSize: tam))
+                              Text(widget.unidad.id_gps!, style: txtTheme.titleSmall!.copyWith(fontSize: tam))
                           )
                         ]
                     ),
                     DataRow(
                         cells: [
                           DataCell(
-                              Icon(Icons.map_outlined)
+                              Icon(Icons.map_outlined, color: Theme.of(context).colorScheme.onPrimary)
                           ),
                           DataCell(
-                              Text("Ubicación", style: TextStyle(fontWeight: FontWeight.bold, fontSize: tam),)
+                              Text("Ubicación", style: txtTheme.titleSmall!.copyWith(fontWeight: FontWeight.bold, fontSize: tam),)
                           ),
                           DataCell(
-                              Text("lugar", style: TextStyle(fontSize: tam))
+                              Text("lugar", style: txtTheme.titleSmall!.copyWith(fontSize: tam))
                           ),
                           DataCell(
-                              Text(widget.unidad.lugar!.isEmpty ? "-" : widget.unidad.lugar!, style: TextStyle(fontSize: tam))
+                              Text(widget.unidad.lugar!.isEmpty ? "-" : widget.unidad.lugar!, style: txtTheme.titleSmall!.copyWith(fontSize: tam))
                           )
                         ]
                     ),
                     DataRow(
                         cells: [
                           DataCell(
-                              Icon(Icons.location_on_outlined)
+                              Icon(Icons.location_on_outlined, color: Theme.of(context).colorScheme.onPrimary)
                           ),
                           DataCell(
-                              Text("Latitud", style: TextStyle(fontWeight: FontWeight.bold, fontSize: tam),)
+                              Text("Latitud", style: txtTheme.titleSmall!.copyWith(fontWeight: FontWeight.bold, fontSize: tam),)
                           ),
                           DataCell(
-                              Text("latitud", style: TextStyle(fontSize: tam))
+                              Text("latitud", style: txtTheme.titleSmall!.copyWith(fontSize: tam))
                           ),
                           DataCell(
-                              Text(widget.unidad.lat!.isEmpty ? "-" : widget.unidad.lat!, style: TextStyle(fontSize: tam))
+                              Text(widget.unidad.lat!.isEmpty ? "-" : widget.unidad.lat!, style: txtTheme.titleSmall!.copyWith(fontSize: tam))
                           )
                         ]
                     ),
                     DataRow(
                         cells: [
                           DataCell(
-                              Icon(Icons.location_on_outlined)
+                              Icon(Icons.location_on_outlined, color: Theme.of(context).colorScheme.onPrimary)
                           ),
                           DataCell(
-                              Text("Longitud", style: TextStyle(fontWeight: FontWeight.bold, fontSize: tam),)
+                              Text("Longitud", style: txtTheme.titleSmall!.copyWith(fontWeight: FontWeight.bold, fontSize: tam),)
                           ),
                           DataCell(
-                              Text("longitud", style: TextStyle(fontSize: tam))
+                              Text("longitud", style: txtTheme.titleSmall!.copyWith(fontSize: tam))
                           ),
                           DataCell(
-                              Text(widget.unidad.long!.isEmpty ? "-" : widget.unidad.long!, style: TextStyle(fontSize: tam))
+                              Text(widget.unidad.long!.isEmpty ? "-" : widget.unidad.long!, style: txtTheme.titleSmall!.copyWith(fontSize: tam))
                           )
                         ]
                     ),
                     DataRow(
                         cells: [
                           DataCell(
-                              Icon(Icons.access_time)
+                              Icon(Icons.access_time, color: Theme.of(context).colorScheme.onPrimary)
                           ),
                           DataCell(
-                              Text("Ultimo reporte", style: TextStyle(fontWeight: FontWeight.bold, fontSize: tam),)
+                              Text("Ultimo reporte", style: txtTheme.titleSmall!.copyWith(fontWeight: FontWeight.bold, fontSize: tam),)
                           ),
                           DataCell(
-                              Text("last", style: TextStyle(fontSize: tam))
+                              Text("last", style: txtTheme.titleSmall!.copyWith(fontSize: tam))
                           ),
                           DataCell(
-                              Text(widget.unidad.last!.isEmpty ? "-" : widget.unidad.last!, style: TextStyle(fontSize: tam))
+                              Text(widget.unidad.last!.isEmpty ? "-" : widget.unidad.last!, style: txtTheme.titleSmall!.copyWith(fontSize: tam))
                           )
                         ]
                     ),
                     DataRow(
                         cells: [
                           DataCell(
-                              Icon(Icons.calendar_month)
+                              Icon(Icons.calendar_month, color: Theme.of(context).colorScheme.onPrimary)
                           ),
                           DataCell(
-                              Text("Fecha del ultimo reporte", style: TextStyle(fontWeight: FontWeight.bold, fontSize: tam),)
+                              Text("Fecha del ultimo reporte", style: txtTheme.titleSmall!.copyWith(fontWeight: FontWeight.bold, fontSize: tam),)
                           ),
                           DataCell(
-                              Text("fecha1", style: TextStyle(fontSize: tam))
+                              Text("fecha1", style: txtTheme.titleSmall!.copyWith(fontSize: tam))
                           ),
                           DataCell(
-                              Text(widget.unidad.fecha1!.isEmpty ? "-" : widget.unidad.fecha1!, style: TextStyle(fontSize: tam))
+                              Text(widget.unidad.fecha1!.isEmpty ? "-" : widget.unidad.fecha1!, style: txtTheme.titleSmall!.copyWith(fontSize: tam))
                           )
                         ]
                     ),
                     DataRow(
                         cells: [
                           DataCell(
-                              Icon(Icons.speed)
+                              Icon(Icons.speed, color: Theme.of(context).colorScheme.onPrimary)
                           ),
                           DataCell(
-                              Text("Velocidad", style: TextStyle(fontWeight: FontWeight.bold, fontSize: tam),)
+                              Text("Velocidad", style: txtTheme.titleSmall!.copyWith(fontWeight: FontWeight.bold, fontSize: tam),)
                           ),
                           DataCell(
-                              Text("velocidad", style: TextStyle(fontSize: tam))
+                              Text("velocidad", style: txtTheme.titleSmall!.copyWith(fontSize: tam))
                           ),
                           DataCell(
-                              Text(widget.unidad.velocidad!.isEmpty ? "-" : widget.unidad.velocidad!, style: TextStyle(fontSize: tam))
+                              Text(widget.unidad.velocidad!.isEmpty ? "-" : widget.unidad.velocidad!, style: txtTheme.titleSmall!.copyWith(fontSize: tam))
                           )
                         ]
                     ),
                     DataRow(
                         cells: [
                           DataCell(
-                              Icon(CupertinoIcons.car)
+                              Icon(CupertinoIcons.car, color: Theme.of(context).colorScheme.onPrimary)
                           ),
                           DataCell(
-                              Text("Tipo vehiculo", style: TextStyle(fontWeight: FontWeight.bold, fontSize: tam),)
+                              Text("Tipo vehiculo", style: txtTheme.titleSmall!.copyWith(fontWeight: FontWeight.bold, fontSize: tam),)
                           ),
                           DataCell(
-                              Text("tipo", style: TextStyle(fontSize: tam))
+                              Text("tipo", style: txtTheme.titleSmall!.copyWith(fontSize: tam))
                           ),
                           DataCell(
-                              Text(widget.unidad.tipo!.isEmpty ? "-" : widget.unidad.tipo!, style: TextStyle(fontSize: tam))
+                              Text(widget.unidad.tipo!.isEmpty ? "-" : widget.unidad.tipo!, style: txtTheme.titleSmall!.copyWith(fontSize: tam))
                           )
                         ]
                     ),
                     DataRow(
                         cells: [
                           DataCell(
-                              Icon(Icons.battery_unknown_outlined)
+                              Icon(Icons.battery_unknown_outlined, color: Theme.of(context).colorScheme.onPrimary)
                           ),
                           DataCell(
-                              Text("Bateria", style: TextStyle(fontWeight: FontWeight.bold, fontSize: tam),)
+                              Text("Bateria", style: txtTheme.titleSmall!.copyWith(fontWeight: FontWeight.bold, fontSize: tam),)
                           ),
                           DataCell(
-                              Text("bateria", style: TextStyle(fontSize: tam))
+                              Text("bateria", style: txtTheme.titleSmall!.copyWith(fontSize: tam))
                           ),
                           DataCell(
-                              Text(widget.unidad.bateria!.isEmpty ? "-" : widget.unidad.bateria!+" %", style: TextStyle(fontSize: tam))
+                              Text(widget.unidad.bateria!.isEmpty ? "-" : widget.unidad.bateria!+" %", style: txtTheme.titleSmall!.copyWith(fontSize: tam))
                           )
                         ]
                     ),
                     DataRow(
                         cells: [
                           DataCell(
-                              Icon(Icons.local_gas_station)
+                              Icon(Icons.local_gas_station, color: Theme.of(context).colorScheme.onPrimary)
                           ),
                           DataCell(
-                              Text("Combustible", style: TextStyle(fontWeight: FontWeight.bold, fontSize: tam),)
+                              Text("Combustible", style: txtTheme.titleSmall!.copyWith(fontWeight: FontWeight.bold, fontSize: tam),)
                           ),
                           DataCell(
-                              Text("combustible", style: TextStyle(fontSize: tam))
+                              Text("combustible", style: txtTheme.titleSmall!.copyWith(fontSize: tam))
                           ),
                           DataCell(
-                              Text(widget.unidad.combustible!.isEmpty ? "-" : widget.unidad.combustible!, style: TextStyle(fontSize: tam))
+                              Text(widget.unidad.combustible!.isEmpty ? "-" : widget.unidad.combustible!, style: txtTheme.titleSmall!.copyWith(fontSize: tam))
                           )
                         ]
                     )

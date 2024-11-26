@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:app_rutas_comsi/Models/validation_model.dart';
 import 'package:app_rutas_comsi/Screens/NavigationScreen/navigation_screen.dart';
 import 'package:app_rutas_comsi/Service/comsi_api.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:session_manager/session_manager.dart';
@@ -73,6 +74,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(height: 22,),
                   FilledButton(
                       onPressed: () {
+                        //FirebaseCrashlytics.instance.crash();
                         ingresar(context);
                       },
                       style: ButtonStyle(backgroundColor: WidgetStatePropertyAll(Colors.redAccent)),

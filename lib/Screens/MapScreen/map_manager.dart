@@ -5,6 +5,7 @@ import 'package:app_rutas_comsi/Service/comsi_api.dart';
 import 'package:flutter/cupertino.dart';
 
 class MapManager extends ChangeNotifier {
+  /** Singleton para que en cualquier llamada se accedan a los mismos datos  */
   // ------- Instancia unica compartida - Singleton ------
   static final MapManager instancia = MapManager._internal();
   factory MapManager() {
@@ -15,8 +16,10 @@ class MapManager extends ChangeNotifier {
 
   List<UnitModel> listUnits = [];
   var count = 0;
+  /** Bool que controla cuando las actaulizaciones de ubicacion se debene ejcutar y cuando no */
   var stopTimer = false;
 
+  /** Metodo que ejecuta el request de la posicion de las unidades a la API */
   excuteRequest() async {
     print("******Provider Manager: Se actalizo la data de los marcadores");
     listUnits = await postUnits();
@@ -24,6 +27,9 @@ class MapManager extends ChangeNotifier {
     notifyListeners();
   }
 
+  /** Metodo con Timer para ejecutar la Consulta de posicionamiento de las unidades
+   * cada 10 segundos simepre y cuando la variable StopTimer este en False.
+   * */
   intervalUpdates() {
     Timer.periodic(Duration(seconds: 10), (timer) {
       if(stopTimer) {
