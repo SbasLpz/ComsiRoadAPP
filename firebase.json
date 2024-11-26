@@ -1,0 +1,1 @@
+{"flutter":{"platforms":{"android":{"default":{"projectId":"comsi-monitoreo","appId":"1:377009883622:android:aebd0999ef9e053d962e27","fileOutput":"android/app/google-services.json"}},"dart":{"lib/firebase_options.dart":{"projectId":"comsi-monitoreo","configurations":{"android":"1:377009883622:android:aebd0999ef9e053d962e27","ios":"1:377009883622:ios:36a61123281c8728962e27"}}}}}}
