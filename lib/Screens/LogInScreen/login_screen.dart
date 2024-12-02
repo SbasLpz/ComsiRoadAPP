@@ -1,9 +1,7 @@
-import 'dart:io';
 
 import 'package:app_rutas_comsi/Models/validation_model.dart';
 import 'package:app_rutas_comsi/Screens/NavigationScreen/navigation_screen.dart';
 import 'package:app_rutas_comsi/Service/comsi_api.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:session_manager/session_manager.dart';
@@ -38,7 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: 110,
                     width: 110,
                     child: Container(
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                           image: DecorationImage(
                               image: AssetImage('assets/images/logoComsi.jpg'),
                               fit: BoxFit.cover
@@ -46,39 +44,39 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 15,),
+                  const SizedBox(height: 15,),
                   TextField(
                     controller: cuentaController,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: "Cuenta"
                     ),
                   ),
-                  SizedBox(height: 15,),
+                  const SizedBox(height: 15,),
                   TextField(
                     controller: userController,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: "Usuario"
                     ),
                   ),
-                  SizedBox(height: 15,),
+                  const SizedBox(height: 15,),
                   TextField(
                     controller: passController,
                     obscureText: true,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: "Constraseña"
                     ),
                   ),
-                  SizedBox(height: 22,),
+                  const SizedBox(height: 22,),
                   FilledButton(
                       onPressed: () {
                         //FirebaseCrashlytics.instance.crash();
                         ingresar(context);
                       },
-                      style: ButtonStyle(backgroundColor: WidgetStatePropertyAll(Colors.redAccent)),
-                      child: Text("Ingresar")
+                      style: const ButtonStyle(backgroundColor: WidgetStatePropertyAll(Colors.redAccent)),
+                      child: const Text("Ingresar")
                   )
                 ],
               ),

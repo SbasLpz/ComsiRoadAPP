@@ -6,7 +6,6 @@ import 'package:app_rutas_comsi/Screens/UnitsScreen/units_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../Styles/theme.dart';
 
 part 'navigation_controller.dart';
 
@@ -40,7 +39,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
         /** En destinations se crean los iconos y nombre de cada campo u opción
          * del Navigation Bar.
          * */
-        destinations: <Widget>[
+        destinations: const <Widget>[
           NavigationDestination(
               icon: Icon(Icons.format_list_bulleted_sharp),
               label: "Unidades"

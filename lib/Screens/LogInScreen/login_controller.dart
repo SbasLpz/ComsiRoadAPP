@@ -1,12 +1,12 @@
 part of 'login_screen.dart';
 
-TextEditingController cuentaController = new TextEditingController();
-TextEditingController userController = new TextEditingController();
-TextEditingController passController = new TextEditingController();
+TextEditingController cuentaController = TextEditingController();
+TextEditingController userController = TextEditingController();
+TextEditingController passController = TextEditingController();
 
-/** Metodo de ingresar que se encarga de validar que los campos de las credenciales no este vacios
- * antes de ejecutar el request de la API que se encarga de validar que las credenciales sean correctas.
- * */
+/// Metodo de ingresar que se encarga de validar que los campos de las credenciales no este vacios
+/// antes de ejecutar el request de la API que se encarga de validar que las credenciales sean correctas.
+///
 ingresar (BuildContext context) {
   if(cuentaController.text.trim() != "" && userController.text.trim() != "" && passController.text.trim() != "") {
 
@@ -61,15 +61,15 @@ ingresar (BuildContext context) {
   }
 }
 
-/** Metodo que se encarga de agregar a SharedPreferences de la app, para almcenar al ID del usuario
- * que se usara más adelante en otros request en diferentes partes de la app.
- * */
+/// Metodo que se encarga de agregar a SharedPreferences de la app, para almcenar al ID del usuario
+/// que se usara más adelante en otros request en diferentes partes de la app.
+///
 shared(int id) async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   await prefs.setInt("id_usr", id);
 }
 
-/** Metodo para crear Dialog, que recibe una serie de parametros con el cuerpo de los Dialog. */
+/// Metodo para crear Dialog, que recibe una serie de parametros con el cuerpo de los Dialog.
 showInfoDialog (String mTitle, String content, String mButton, BuildContext context, String asset) {
   showDialog(
       context: context,
@@ -79,7 +79,7 @@ showInfoDialog (String mTitle, String content, String mButton, BuildContext cont
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(content),
-            SizedBox(height: 15,),
+            const SizedBox(height: 15,),
             Image.asset(
               asset,
               width: 120,

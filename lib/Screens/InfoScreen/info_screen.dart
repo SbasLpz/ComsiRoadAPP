@@ -1,14 +1,5 @@
 import 'package:app_rutas_comsi/Models/unit_model.dart';
 import 'package:app_rutas_comsi/Screens/HistoryScreen/history_screen.dart';
-import 'package:app_rutas_comsi/Screens/HistoryScreen/history_screen.dart';
-import 'package:app_rutas_comsi/Screens/HistoryScreen/history_screen.dart';
-import 'package:app_rutas_comsi/Screens/HistoryScreen/history_screen.dart';
-import 'package:app_rutas_comsi/Screens/HistoryScreen/history_screen.dart';
-import 'package:app_rutas_comsi/Screens/HistoryScreen/history_screen.dart';
-import 'package:app_rutas_comsi/Screens/HistoryScreen/history_screen.dart';
-import 'package:app_rutas_comsi/Screens/HistoryScreen/history_screen.dart';
-import 'package:app_rutas_comsi/Screens/HistoryScreen/history_screen.dart';
-import 'package:app_rutas_comsi/Screens/HistoryScreen/history_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -37,7 +28,7 @@ class _InfoScreenState extends State<InfoScreen> {
         ),
       ),
       body: Padding(
-        padding: EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(20.0),
         child: Column(
           children: [
             Container(
@@ -49,7 +40,7 @@ class _InfoScreenState extends State<InfoScreen> {
                 textAlign: TextAlign.center,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Text(
@@ -57,7 +48,7 @@ class _InfoScreenState extends State<InfoScreen> {
               style: txtTheme.titleSmall!.copyWith(fontSize: 18),
               textAlign: TextAlign.center,
             ),
-            SizedBox(
+            const SizedBox(
               height: 8,
             ),
             Text(
@@ -65,14 +56,14 @@ class _InfoScreenState extends State<InfoScreen> {
               style: txtTheme.titleSmall!,
               textAlign: TextAlign.center,
             ),
-            SizedBox(
+            const SizedBox(
               height: 25,
             ),
             FittedBox(
               child: DataTable(
                   //dataRowColor: WidgetStatePropertyAll(Color()),
                   dataRowHeight: 90.0,
-                  columns: [
+                  columns: const [
                     DataColumn(
                         label: Expanded(
                             child: Text("")
@@ -249,7 +240,7 @@ class _InfoScreenState extends State<InfoScreen> {
                               Text("bateria", style: txtTheme.titleSmall!.copyWith(fontSize: tam))
                           ),
                           DataCell(
-                              Text(widget.unidad.bateria!.isEmpty ? "-" : widget.unidad.bateria!+" %", style: txtTheme.titleSmall!.copyWith(fontSize: tam))
+                              Text(widget.unidad.bateria!.isEmpty ? "-" : "${widget.unidad.bateria!} %", style: txtTheme.titleSmall!.copyWith(fontSize: tam))
                           )
                         ]
                     ),

@@ -63,7 +63,7 @@ class _MyAppState extends State<MyApp> {
             theme: themeProvider.attrs.myColors,
             themeMode: ThemeMode.light,
             home: UpgradeAlert(
-              child: LoginScreen()
+              child: const LoginScreen()
             ),
           );
         },

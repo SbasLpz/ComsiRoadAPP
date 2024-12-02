@@ -25,12 +25,12 @@ class _AlertasScreenState extends State<AlertasScreen> {
 
     return Scaffold(
       body: Padding(
-          padding: EdgeInsets.all(25.0),
+          padding: const EdgeInsets.all(25.0),
         child: Column(
           children: [
-            SizedBox(height: 60,),
+            const SizedBox(height: 60,),
             Text("Bandeja de Alertas", style: txtTheme.titleSmall!.copyWith(fontSize: 22, fontWeight: FontWeight.bold)),
-            SizedBox(height: 30,),
+            const SizedBox(height: 30,),
             Text("En esta sección podra observar las alertas de sus unidad informando de su estado actual.", style: txtTheme.titleSmall!.copyWith(fontSize: 18),),
             Expanded(
                 child: FutureBuilder(
@@ -41,7 +41,7 @@ class _AlertasScreenState extends State<AlertasScreen> {
                           ConnectionState.waiting) {
                         /** ---  Codigo cuando la consulta esta cargando --- */
 
-                        return Center(
+                        return const Center(
                           child: CircularProgressIndicator(),
                         );
                       } else if (snapshot.hasData) {
@@ -53,7 +53,7 @@ class _AlertasScreenState extends State<AlertasScreen> {
                         /** Se valida que si vengas alertas desde la API para cargar los Card y mostrara las alertas al usuario,
                          * en caso de que no hayan alertas disponibles, muestra un texto informativo al usuario.
                          * */
-                        if (alertas.length <= 0){
+                        if (alertas.isEmpty){
                           return Center(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -74,7 +74,7 @@ class _AlertasScreenState extends State<AlertasScreen> {
                         }
                       } else {
                         /** --- Codigo para cuando la Consulta ocrriera un error --- */
-                        return Center(
+                        return const Center(
                           child: Text("No hay alertas disponibles"),
                         );
                       }

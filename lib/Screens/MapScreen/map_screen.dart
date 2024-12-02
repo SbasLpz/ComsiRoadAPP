@@ -25,7 +25,7 @@ class MapScreen extends StatefulWidget {
 class _MapScreenState extends State<MapScreen> {
 
   var id_usr = 0;
-  /** Variable que contendra el Set de unidades seleccionadas */
+  /// Variable que contendra el Set de unidades seleccionadas
   Set<int> unidades = Set<int>.from(theUnitsManager.selectedIds);
 
   @override
@@ -74,7 +74,7 @@ class _MapScreenState extends State<MapScreen> {
           builder: (context, snapshot) {
             if(snapshot.connectionState == ConnectionState.waiting) {
               /** ---  Codigo cuando la consulta esta cargando --- */
-              return Center(
+              return const Center(
                 child: CircularProgressIndicator(),
               );
             } else if(snapshot.hasData && snapshot.data is List<UnitModel>) {
@@ -91,11 +91,11 @@ class _MapScreenState extends State<MapScreen> {
               /** listOdUnits ve si hay lista de unidades seleccionadas en caso de que no usa la variable defData
                * y en caso de que si, llama el mertodo que devuelve una lista de unidades filtrada a partir del Set con IDs
                * */
-              List<UnitModel> listOfUnits = unidades.length == 0 ? defData : listaFiltrada(unidades, defData);
+              List<UnitModel> listOfUnits = unidades.isEmpty ? defData : listaFiltrada(unidades, defData);
 
               /** Variables de configuración del FlutterMap */
               var zoom = 6.0;
-              var iniLocation = listOfUnits.length == 0 ? LatLng(double.parse(listOfUnits.first.lat!), double.parse(listOfUnits.first.long!)) :  LatLng(9.9996, -84.1572);
+              var iniLocation = listOfUnits.isEmpty ? LatLng(double.parse(listOfUnits.first.lat!), double.parse(listOfUnits.first.long!)) :  const LatLng(9.9996, -84.1572);
               if(listOfUnits.length == 1) {
                 zoom = 13.0;
                 iniLocation = LatLng(double.parse(listOfUnits.first.lat!), double.parse(listOfUnits.first.long!));

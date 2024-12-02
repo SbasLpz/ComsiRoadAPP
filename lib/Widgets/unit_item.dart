@@ -1,5 +1,4 @@
 import 'package:app_rutas_comsi/Screens/UnitsScreen/units_manager.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -25,12 +24,12 @@ Widget buildUnit(List<UnitModel> unidades, BuildContext context, Key key) {
             child: Column(
               children: [
                 Padding(
-                  padding: EdgeInsets.fromLTRB(20.0, 10.0, 0, 0),
+                  padding: const EdgeInsets.fromLTRB(20.0, 10.0, 0, 0),
                   child: Row(
                     children: [
                       Expanded(
-                          child: Text(unidad.desc.toString(), style: TextStyle(fontSize: 20),),
                           flex: 3,
+                          child: Text(unidad.desc.toString(), style: const TextStyle(fontSize: 20),),
                       ),
                       Flexible(
                           flex: 1,
@@ -39,7 +38,7 @@ Widget buildUnit(List<UnitModel> unidades, BuildContext context, Key key) {
                            * a si el ID se encuetra o no en el Set de IDs de unidad seleccionadas.
                            * */
                           child: unitsManager.selectedIds.contains(int.parse(unidad.id_gps!)) || unitsManager.isChecked == true ?
-                          Align(
+                          const Align(
                             alignment: Alignment.topRight,
                             child: Padding(
                               padding: EdgeInsets.fromLTRB(10, 10, 30, 0),
@@ -48,7 +47,7 @@ Widget buildUnit(List<UnitModel> unidades, BuildContext context, Key key) {
                           ) : Align(
                             alignment: Alignment.topRight,
                             child: Padding(
-                              padding: EdgeInsets.fromLTRB(10, 10, 30, 0),
+                              padding: const EdgeInsets.fromLTRB(10, 10, 30, 0),
                               child: Icon(Icons.circle_outlined, color: Colors.grey[600], size: 30,),
                             ),
                           )
@@ -63,7 +62,7 @@ Widget buildUnit(List<UnitModel> unidades, BuildContext context, Key key) {
                           flex: 1,
                           child: ListTile(
                             minTileHeight: double.minPositive,
-                            leading: Icon(
+                            leading: const Icon(
                               Icons.car_crash,
                               size: 20,
                             ),
@@ -76,7 +75,7 @@ Widget buildUnit(List<UnitModel> unidades, BuildContext context, Key key) {
                           flex: 1,
                           child: ListTile(
                             minTileHeight: double.minPositive,
-                            leading: Icon(
+                            leading: const Icon(
                               Icons.circle,
                               size: 20,
                             ),
@@ -97,13 +96,13 @@ Widget buildUnit(List<UnitModel> unidades, BuildContext context, Key key) {
                           child: Container(
                             child: ListTile(
                               minTileHeight: double.minPositive,
-                              contentPadding: EdgeInsets.fromLTRB(15, 0, 0, 0),
-                              leading: Icon(
+                              contentPadding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
+                              leading: const Icon(
                                 Icons.location_on_outlined,
                                 size: 20,
                               ),
                               title: Text(
-                                unidad.lugar!.isNotEmpty ? "${unidad.lugar}" : unidad.lat.toString()+","+unidad.long.toString(),
+                                unidad.lugar!.isNotEmpty ? "${unidad.lugar}" : "${unidad.lat},${unidad.long}",
                               ),
                             ),
                           )
@@ -112,7 +111,7 @@ Widget buildUnit(List<UnitModel> unidades, BuildContext context, Key key) {
                           flex: 1,
                           child: ListTile(
                             minTileHeight: double.minPositive,
-                            leading: Icon(Icons.key, size: 20,),
+                            leading: const Icon(Icons.key, size: 20,),
                             title: Text(unidad.id_gps.toString()),
                           )
                       )

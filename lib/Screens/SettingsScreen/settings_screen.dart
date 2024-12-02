@@ -22,11 +22,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return Scaffold(
       body: Column(
         children: [
-          SizedBox(height: 80,),
+          const SizedBox(height: 80,),
           Center(
               child: Text("Ajustes", style: txtTheme.titleSmall!.copyWith(fontSize: 22),)
           ),
-          SizedBox(height: 30,),
+          const SizedBox(height: 30,),
           Padding(
             padding: const EdgeInsets.all(20.0),
             child: Container(
@@ -39,9 +39,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: 40,),
+                  const SizedBox(height: 40,),
                   SwitchListTile(
-                      title: Text("Modo oscuro", style: TextStyle(fontSize: 18)),
+                      title: const Text("Modo oscuro", style: TextStyle(fontSize: 18)),
                       value: themeManager.isDarkMode,
                       onChanged: (newValue) {
                         themeManager.toggleTheme();
@@ -50,17 +50,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         });
                       }
                   ),
-                  SizedBox(height: 30,),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(15.0, 0, 0, 0),
+                  const SizedBox(height: 30,),
+                  const Padding(
+                    padding: EdgeInsets.fromLTRB(15.0, 0, 0, 0),
                     child: Text("Cerrar sesión", style: TextStyle(fontSize: 18, )),
                   ),
-                  SizedBox(height: 40,),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(15.0, 0, 0, 0),
+                  const SizedBox(height: 40,),
+                  const Padding(
+                    padding: EdgeInsets.fromLTRB(15.0, 0, 0, 0),
                     child: Text("Terminos de acuerdos y condiciones.", style: TextStyle(fontSize: 18, )),
                   ),
-                  SizedBox(height: 100,),
+                  const SizedBox(height: 100,),
                 ],
               ),
             ),

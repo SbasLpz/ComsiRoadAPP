@@ -19,7 +19,7 @@ Widget infoItem(UnitModel unidad, BuildContext context) {
 
   return Container(
     child: Padding(
-      padding: EdgeInsets.fromLTRB(0, 0, 0, 15.0),
+      padding: const EdgeInsets.fromLTRB(0, 0, 0, 15.0),
       child: Container(
         child: FutureBuilder(
           /** Se ejeucta request para obtener mas datos de la Unidad del Mapa */
@@ -28,7 +28,7 @@ Widget infoItem(UnitModel unidad, BuildContext context) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               /** ---  Codigo cuando la consulta esta cargando --- */
 
-              return SizedBox(
+              return const SizedBox(
                   height: 200.0,
                   child: Center(child: CircularProgressIndicator())
               );
@@ -43,10 +43,10 @@ Widget infoItem(UnitModel unidad, BuildContext context) {
                   children: [
                     Container(
                       width: double.infinity,
-                      padding: EdgeInsets.all(25),
+                      padding: const EdgeInsets.all(25),
                       decoration: BoxDecoration(
                         color: themeManager.isDarkMode ? COLOR_3 : COLOR_1, // Fondo rojo
-                        borderRadius: BorderRadius.vertical(
+                        borderRadius: const BorderRadius.vertical(
                           top: Radius.circular(17), // Bordes superiores redondeados
                         ),
                       ),
@@ -75,7 +75,7 @@ Widget infoItem(UnitModel unidad, BuildContext context) {
                      * */
                     Container(
                       child: Padding(
-                        padding: EdgeInsets.fromLTRB(20.0, padd, 20.0, padd),
+                        padding: const EdgeInsets.fromLTRB(20.0, padd, 20.0, padd),
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
@@ -83,7 +83,7 @@ Widget infoItem(UnitModel unidad, BuildContext context) {
                               width: widd,
                               child: Container(
                                 //color: Colors.redAccent,
-                                child: Column(
+                                child: const Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
@@ -120,7 +120,7 @@ Widget infoItem(UnitModel unidad, BuildContext context) {
                         padding: const EdgeInsets.fromLTRB(20.0, padd, 20.0, padd),
                         child: Row(
                           children: [
-                            SizedBox(
+                            const SizedBox(
                               width: widd,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -157,7 +157,7 @@ Widget infoItem(UnitModel unidad, BuildContext context) {
                         padding: const EdgeInsets.fromLTRB(20.0, padd, 20.0, padd),
                         child: Row(
                           children: [
-                            SizedBox(
+                            const SizedBox(
                               width: widd,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -194,7 +194,7 @@ Widget infoItem(UnitModel unidad, BuildContext context) {
                         padding: const EdgeInsets.fromLTRB(20.0, padd, 20.0, padd),
                         child: Row(
                           children: [
-                            SizedBox(
+                            const SizedBox(
                               width: widd,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -221,7 +221,7 @@ Widget infoItem(UnitModel unidad, BuildContext context) {
                         ),
                       ),
                     ),
-                    SizedBox(height: 10.0,),
+                    const SizedBox(height: 10.0,),
                     Container(
                       /** Conatiner que contiene todas las accoines que el usuario puede realizar
                        * con base a la unidades seleccionada. */
@@ -236,7 +236,7 @@ Widget infoItem(UnitModel unidad, BuildContext context) {
                                         MaterialPageRoute(builder: (context) => InfoScreen(unidad: unidad,))
                                     );
                                   },
-                                  icon: Icon(Icons.info_outline)
+                                  icon: const Icon(Icons.info_outline)
                               )
                           ),
                           Expanded(
@@ -248,7 +248,7 @@ Widget infoItem(UnitModel unidad, BuildContext context) {
                                         MaterialPageRoute(builder: (context) => CommandScreen(id_vehiculo: unidad.id!,))
                                     );
                                   },
-                                  icon: Icon(Icons.terminal)
+                                  icon: const Icon(Icons.terminal)
                               )
                           ),
                           Expanded(
@@ -260,7 +260,7 @@ Widget infoItem(UnitModel unidad, BuildContext context) {
                                         MaterialPageRoute(builder: (context) => HistoryScreen(unidad: unidad,))
                                     );
                                   },
-                                  icon: Icon(Icons.history)
+                                  icon: const Icon(Icons.history)
                               )
                           )
                         ],
@@ -277,7 +277,7 @@ Widget infoItem(UnitModel unidad, BuildContext context) {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Error desconocido"),
+                    const Text("Error desconocido"),
                     Image.asset(
                       'assets/images/error.png',
                       width: 200,

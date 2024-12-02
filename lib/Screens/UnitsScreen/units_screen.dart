@@ -1,7 +1,4 @@
 import 'dart:async';
-import 'dart:ffi';
-import 'package:app_rutas_comsi/Screens/MapScreen/map_screen.dart';
-import 'package:app_rutas_comsi/Screens/SettingsScreen/settings_screen.dart';
 import 'package:app_rutas_comsi/Screens/UnitsScreen/units_manager.dart';
 import 'package:app_rutas_comsi/Styles/theme_manager.dart';
 import 'package:provider/provider.dart';
@@ -24,11 +21,11 @@ class UnitsScreen extends StatefulWidget {
 
 class _UnitsScreenState extends State<UnitsScreen> {
 
-  /** variable que contendra el requestv a la API */
+  /// variable que contendra el requestv a la API
   dynamic _unitsFuture;
-  /** Key que identidficara a cada unidad como elementos unico */
+  /// Key que identidficara a cada unidad como elementos unico
   final GlobalKey _listKey = GlobalKey();
-  /** Variable que contiene el ID del usuario del Inicio de Sesión */
+  /// Variable que contiene el ID del usuario del Inicio de Sesión
   var id_usr = 0;
 
   @override
@@ -39,7 +36,7 @@ class _UnitsScreenState extends State<UnitsScreen> {
     super.initState();
   }
 
-  /** Metodo que obtiene el ID del usuario obtenido del request del Inicio de sesión*/
+  /// Metodo que obtiene el ID del usuario obtenido del request del Inicio de sesión
   Future<void> _loadUserId() async {
     final loadedId = await loadIduser(); // Esperamos el resultado del Future
     setState(() {
@@ -68,12 +65,12 @@ class _UnitsScreenState extends State<UnitsScreen> {
           });
           return Container(
             child: ConstrainedBox(
-              constraints: BoxConstraints.expand(),
+              constraints: const BoxConstraints.expand(),
               child: Padding(
-                padding: EdgeInsets.all(15.0),
+                padding: const EdgeInsets.all(15.0),
                 child: Column(
                   children: [
-                    SizedBox(height: 20,),
+                    const SizedBox(height: 20,),
                     SearchBar(
                       controller: searchController,
                       hintText: "Buscar unidad...",
@@ -81,13 +78,13 @@ class _UnitsScreenState extends State<UnitsScreen> {
                        * de busqueda.
                        * */
                       onChanged: (value) {
-                        print("SEARCH new value: ${value}");
+                        print("SEARCH new value: $value");
                         context.read<UnitsManager>().search(value);
                       },
                     ),
                     Row(
                       children: [
-                        Text("Seleccionar todas: "),
+                        const Text("Seleccionar todas: "),
                         Checkbox(
                             value: unitsManager.isChecked,
                             /** Metodo que asigna true o false a variable que controla la seleccion de todas las unidades.
@@ -102,26 +99,26 @@ class _UnitsScreenState extends State<UnitsScreen> {
                         )
                       ],
                     ),
-                    SizedBox(height: 10,),
+                    const SizedBox(height: 10,),
                     FilledButton(
                       /** Botón para abrir el Mapa */
                       onPressed: () {
                         navManager.setIndex(1);
                       },
-                      child: ListTile(
+                      style: const ButtonStyle(backgroundColor: WidgetStatePropertyAll(Colors.white54)),
+                      child: const ListTile(
                         title: Text("Ver en el mapa"),
                         leading: Icon(Icons.map_outlined),
                       ),
-                      style: ButtonStyle(backgroundColor: WidgetStatePropertyAll(Colors.white54)),
                     ),
-                    SizedBox(height: 20,),
+                    const SizedBox(height: 20,),
                     Expanded(
                         child: FutureBuilder(
                             future: myUnitsPost,
                             builder: (context, snapshot) {
                               if (snapshot.connectionState == ConnectionState.waiting){
                                 /** ---  Codigo cuando la consulta esta cargando --- */
-                                return Center(
+                                return const Center(
                                   child: CircularProgressIndicator(),
                                 );
                               } else if (snapshot.hasData && snapshot.data is List<UnitModel>){
@@ -130,7 +127,7 @@ class _UnitsScreenState extends State<UnitsScreen> {
                                 /** Unidades contiene en caso de que la lista del Manager no haya sido filtrada ni nada la lista de unidades recibida del Request
                                  * En caso de que la lista est filtrada (El usuario busco por nombre o ID) la varible contiene esa lista units.
                                  * */
-                                final unidades = unitsManager.units.isEmpty ? snapshot.data! : unitsManager.units!;
+                                final unidades = unitsManager.units.isEmpty ? snapshot.data! : unitsManager.units;
                                 unitsManager.allUnits = snapshot.data! as List<UnitModel>;
 
                                 /** Se manda a llamar el Widget de CardView de Widgets/unit_item.dart */
@@ -147,7 +144,7 @@ class _UnitsScreenState extends State<UnitsScreen> {
                                       width: 200,
                                       height: 200,
                                     ),
-                                    Container(
+                                    SizedBox(
                                       width: 200,
                                       child: FilledButton(
                                         //style: ButtonStyle(maximumSize: WidgetStatePropertyAll(200)),
@@ -156,7 +153,7 @@ class _UnitsScreenState extends State<UnitsScreen> {
 
                                             });
                                           },
-                                          child: ListTile(
+                                          child: const ListTile(
                                             title: Text("Recargar", style: TextStyle(),),
                                             leading: Icon(Icons.refresh,),
                                           )

@@ -74,7 +74,7 @@ Future<TimeOfDay?> showMyTimePicker({
     anchorPoint: anchorPoint,
   );
 }
-/** Metodo envcargado de revistar si la Hora de fin es previa a la de inicio */
+/// Metodo envcargado de revistar si la Hora de fin es previa a la de inicio
 
 isBefore(TimeOfDay ini, TimeOfDay fin) {
 //23 < 19 = false || 19 < 23  = true
@@ -103,9 +103,9 @@ showInfoDialog (String mTitle, String content, String mButton, BuildContext cont
   );
 }
 
-/** Metodo que se encarga de validar que los datos esten correctos antes a abrir la siguiente pantalla
- * que seria la del Mapa del historial para mostrar la ruta de la unidad.
- * */
+/// Metodo que se encarga de validar que los datos esten correctos antes a abrir la siguiente pantalla
+/// que seria la del Mapa del historial para mostrar la ruta de la unidad.
+///
 consultar(BuildContext context, String id) {
   print("PreviosHour: ${validManager.previousHour}, SameDay: ${validManager.sameDay}, VALID: ${validManager.validDates}");
   if(!validManager.validDates) {
@@ -123,7 +123,7 @@ consultar(BuildContext context, String id) {
   String fmtFinalDateTimeInicio = DateFormat("yyyy-MM-dd HH:mm:ss").format(finalDateTimeInicio);
   String fmtFinalDateTimeFin = DateFormat("yyyy-MM-dd HH:mm:ss").format(finalDateTimeFin);
 
-  print("OBJETOS FormatDateTimes: ${fmtFinalDateTimeInicio}, ${fmtFinalDateTimeFin}");
+  print("OBJETOS FormatDateTimes: $fmtFinalDateTimeInicio, $fmtFinalDateTimeFin");
 
   Navigator.push(
       context,

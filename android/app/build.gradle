@@ -8,7 +8,7 @@ plugins {
     // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
     id "dev.flutter.flutter-gradle-plugin"
 }
-
+ext.kotlin_version = '1.6.10'
 def localProperties = new Properties()
 def localPropertiesFile = rootProject.file("local.properties")
 if (localPropertiesFile.exists()) {
@@ -38,10 +38,20 @@ android {
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
+    kotlinOptions {
+        jvmTarget = "1.8" // Asegúrate de que coincida con `compileOptions`
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+    composeOptions {
+        kotlinCompilerExtensionVersion '1.4.0'
+    }
+//    kotlinOptions {
+//        jvmTarget = "1.8" // Asegúrate de que coincida con `compileOptions`
+//    }
 
     signingConfigs {
         release {
@@ -70,6 +80,15 @@ android {
             signingConfig = signingConfigs.release
         }
     }
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version" // Kotlin
+    //implementation 'com.google.firebase:firebase-analytics:20.1.0' // Firebase Analytics (como ejemplo)
+    //implementation 'com.google.firebase:firebase-auth:21.0.1' // Firebase Auth (si usas autenticación)
+    // Agrega otras dependencias de Firebase o librerías necesarias para tu app
+
+    //implementation project(":flutter")
 }
 
 flutter {

@@ -1,7 +1,5 @@
 import 'package:app_rutas_comsi/Screens/AlertasScreen/alertas_manager.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../Models/alert_model.dart';
@@ -47,7 +45,7 @@ Widget buildAlertItem(List<AlertModel> alerts, BuildContext context) {
                           //color: Colors.redAccent,
                           child: Column(
                             children: [
-                              Text("Placa", style: TextStyle(fontWeight: FontWeight.w600),),
+                              const Text("Placa", style: TextStyle(fontWeight: FontWeight.w600),),
                               Text(alert.placa.toString(), textAlign: TextAlign.center,)
                             ],
                           ),
@@ -57,7 +55,7 @@ Widget buildAlertItem(List<AlertModel> alerts, BuildContext context) {
                         flex: 2,
                         child: Column(
                           children: [
-                            Text("Fecha", style: TextStyle(fontWeight: FontWeight.w600)),
+                            const Text("Fecha", style: TextStyle(fontWeight: FontWeight.w600)),
                             Center(
                                 child: Text(
                                   "${alert.fecha1}",
@@ -77,7 +75,7 @@ Widget buildAlertItem(List<AlertModel> alerts, BuildContext context) {
                 Container(
                   color: Theme.of(context).colorScheme.inversePrimary,
                   child: Padding(
-                    padding: EdgeInsets.all(25.0),
+                    padding: const EdgeInsets.all(25.0),
                     child: Text(alert.descripcion.toString(), style: TextStyle(color: Theme.of(context).colorScheme.onSecondary),),
                   ),
                 )

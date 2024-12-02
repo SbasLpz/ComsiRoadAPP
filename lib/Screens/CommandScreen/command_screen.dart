@@ -9,7 +9,7 @@ import 'command_manager.dart';
 part 'command_controller.dart';
 
 class CommandScreen extends StatefulWidget {
-  const CommandScreen({super.key, required String this.id_vehiculo});
+  const CommandScreen({super.key, required this.id_vehiculo});
 
   final String id_vehiculo;
 
@@ -41,20 +41,20 @@ class _CommandScreenState extends State<CommandScreen> {
         ),
       ),
       body: Padding(
-        padding: EdgeInsets.fromLTRB(20.0, 50.0, 20.0, 20.0),
+        padding: const EdgeInsets.fromLTRB(20.0, 50.0, 20.0, 20.0),
         child: Card(
           child: Container(
             width: double.maxFinite,
             height: 410,
-            decoration: BoxDecoration(borderRadius: BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15), bottomLeft: Radius.circular(15), bottomRight: Radius.circular(15))),
+            decoration: const BoxDecoration(borderRadius: BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15), bottomLeft: Radius.circular(15), bottomRight: Radius.circular(15))),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(height: 30,),
+                const SizedBox(height: 30,),
                 Container(
                   width: double.maxFinite,
-                  decoration: BoxDecoration(borderRadius: BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15))),
+                  decoration: const BoxDecoration(borderRadius: BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15))),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
@@ -64,16 +64,16 @@ class _CommandScreenState extends State<CommandScreen> {
                     ),
                   ),
                 ),
-                SizedBox(height: 30,),
+                const SizedBox(height: 30,),
                 Text(
                   "Unidad: ${widget.id_vehiculo}",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
                 Padding(
-                    padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
+                    padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                   child: FutureBuilder(
                     /** Se asigna la variable _commandsFuture en lugar del metodo de rewquest de la API directamente
                      * para evitar que la pantalla se recargue siempre que el suairo seleccione un comando.
@@ -81,7 +81,7 @@ class _CommandScreenState extends State<CommandScreen> {
                       future: _commandsFuture,
                       builder: (context, snapshot) {
                         if (snapshot.connectionState == ConnectionState.waiting){
-                          return Center(
+                          return const Center(
                             child: CircularProgressIndicator(),
                           );
                         } else if (snapshot.hasData) {
@@ -93,7 +93,7 @@ class _CommandScreenState extends State<CommandScreen> {
                                 borderRadius: BorderRadius.circular(8.0)
                               )
                             ),
-                              hint: comandos.length == 0 ? Text("No disponibles") : Text("Seleccione un comando"),
+                              hint: comandos.isEmpty ? const Text("No disponibles") : const Text("Seleccione un comando"),
                               value: manager.selected,
                               /** Se recorre con map la lista de comandos (variable "comandos") y se van creando objetos
                                * de tipo DropdownMenuItem que sera la Opciones que se veran del DropdownButtonFormField.
@@ -109,16 +109,16 @@ class _CommandScreenState extends State<CommandScreen> {
                               }
                           );
                         } else {
-                          return Center(
+                          return const Center(
                             child: Text("No se pudo conectar al servidor."),
                           );
                         }
                       }
                   ),
                 ),
-                SizedBox(height: 40,),
+                const SizedBox(height: 40,),
                 Padding(
-                    padding: EdgeInsets.fromLTRB(15.0, 0, 15.0, 0),
+                    padding: const EdgeInsets.fromLTRB(15.0, 0, 15.0, 0),
                   child: Row(
                     children: [
                       ElevatedButton(
@@ -128,12 +128,12 @@ class _CommandScreenState extends State<CommandScreen> {
                           onPressed: () {
                             Navigator.pop(context);
                             Navigator.push(context,
-                                MaterialPageRoute(builder: (context)=> NavigationScreen())
+                                MaterialPageRoute(builder: (context)=> const NavigationScreen())
                             );
                           },
-                          child: Text("Cancelar")
+                          child: const Text("Cancelar")
                       ),
-                      SizedBox(width: 10,),
+                      const SizedBox(width: 10,),
                       /** Se valida que el usuario haya seleccionado un comando para entonces ejecuatr el request a la API
                        * que envia el comando a la unidad, en caso de no haber comando seleccionado se deshabilita el boton con
                        * asignadole un null en su evento onTap.
@@ -157,23 +157,23 @@ class _CommandScreenState extends State<CommandScreen> {
                             } catch(e){
                               manager.changeEstaCargando(false);
                               print("----- EXCEPCIÓN ----");
-                              Text("Excepción: ${e}");
+                              Text("Excepción: $e");
                             }
                             manager.selected = null;
                             setState(() {
           
                             });
                           },
-                          child: Text("Enviar")
-                      ) : OutlinedButton(
+                          child: const Text("Enviar")
+                      ) : const OutlinedButton(
                           onPressed: null,
                           child: Text("Enviar")
                       )
                     ],
                   ),
                 ),
-                SizedBox(height: 20,),
-                !manager.estaCargando ? Text(manager.infoCmd) : CircularProgressIndicator()
+                const SizedBox(height: 20,),
+                !manager.estaCargando ? Text(manager.infoCmd) : const CircularProgressIndicator()
               ],
             )
           ),

@@ -12,9 +12,9 @@ part 'map_screen_controller.dart';
 class MapHistoryScreen extends StatefulWidget {
   const MapHistoryScreen({super.key, required this.id, required this.fechaIni, required this.fechaFin});
 
-  /** Parametros que viene desde la pantalla de historial y son necesarios para
-   * ejecutar el request a la API del historial.
-   * */
+  /// Parametros que viene desde la pantalla de historial y son necesarios para
+  /// ejecutar el request a la API del historial.
+  ///
   final String id;
   final String fechaIni;
   final String fechaFin;
@@ -41,7 +41,7 @@ class _MapHistoryScreenState extends State<MapHistoryScreen> {
                 onPressed: (){
                   Navigator.pop(context);
                 },
-                icon: Icon(Icons.arrow_back)
+                icon: const Icon(Icons.arrow_back)
             );
           },
         ),
@@ -52,7 +52,7 @@ class _MapHistoryScreenState extends State<MapHistoryScreen> {
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             /** ---  Codigo cuando la consulta esta cargando --- */
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           } else if (snapshot.hasData && snapshot.data!.isNotEmpty) {
@@ -63,7 +63,7 @@ class _MapHistoryScreenState extends State<MapHistoryScreen> {
              * para que se use de referencia al cargar el FlutterMap
              * */
             var firstPoint = LatLng(double.parse(listaPuntos!.first.latitud!),
-                double.parse(listaPuntos!.first.longitud!));
+                double.parse(listaPuntos.first.longitud!));
 
             return FlutterMap(
                 options: MapOptions(
@@ -87,7 +87,7 @@ class _MapHistoryScreenState extends State<MapHistoryScreen> {
                   PolylineLayer(
                       polylines: [
                         Polyline(
-                            points: pointsToPoly(listaPuntos!),
+                            points: pointsToPoly(listaPuntos),
                             color: Colors.lightBlue,
                             borderStrokeWidth: 2.0,
                             borderColor: Colors.lightBlue
@@ -111,7 +111,7 @@ class _MapHistoryScreenState extends State<MapHistoryScreen> {
                                   print("DATA KEY FOUND. ${data.fecha_pc}");
                                 }
 
-                                return data == null ? Text("")
+                                return data == null ? const Text("")
                                     : HistoryItem(data: data, popupController: myPopupController,); //infoDialogHistory(data, context);
                               }
                           )
@@ -121,7 +121,7 @@ class _MapHistoryScreenState extends State<MapHistoryScreen> {
             );
           } else {
             /** --- Codigo para cuando la Consulta ocrriera un error --- */
-            return Center(
+            return const Center(
               child: Text("No hubo ruta en esos intervalos"),
             );
           }

@@ -1,12 +1,12 @@
 
 import 'package:flutter/material.dart';
 
-/** Light primary COLORS **/
+/// Light primary COLORS *
 const COLOR_1 = Colors.redAccent;
 const COLOR_2 = Color(0xff6c97be);
 const COLOR_3 = Color(0xff0c5fa8);
 
-/** Dark primary COLORS **/
+/// Dark primary COLORS *
 
 abstract class ThemeAttrs {
   ThemeMode get mode;
@@ -25,7 +25,7 @@ class LightThemeAttrs extends ThemeAttrs {
   ThemeData get myColors => ThemeData(
     useMaterial3: true,
     brightness: Brightness.light,
-    textTheme: TextTheme(
+    textTheme: const TextTheme(
       titleSmall: TextStyle(
         color: Colors.white
       ),
@@ -33,7 +33,7 @@ class LightThemeAttrs extends ThemeAttrs {
       //   color: Colors.white
       // )
     ),
-    expansionTileTheme: ExpansionTileThemeData(
+    expansionTileTheme: const ExpansionTileThemeData(
       backgroundColor: COLOR_1
     ),
     scaffoldBackgroundColor: Colors.redAccent,
@@ -49,13 +49,13 @@ class DarkThemeAttrs extends ThemeAttrs {
   ThemeMode get mode => ThemeMode.light;
 
   @override
-  Color get specialColor => Color(0xff6c97be);
+  Color get specialColor => const Color(0xff6c97be);
 
   @override
   ThemeData get myColors => ThemeData(
     useMaterial3: true,
     //brightness: Brightness.dark,
-    textTheme: TextTheme(
+    textTheme: const TextTheme(
       titleSmall: TextStyle(
           color: Colors.white
       ),
@@ -63,15 +63,15 @@ class DarkThemeAttrs extends ThemeAttrs {
       //   color: Colors.white
       // )
     ),
-    expansionTileTheme: ExpansionTileThemeData(
+    expansionTileTheme: const ExpansionTileThemeData(
         backgroundColor: COLOR_1
     ),
     scaffoldBackgroundColor: COLOR_3,
-    cardTheme: CardTheme(
+    cardTheme: const CardTheme(
       color: Color(0xff6c97be)
     ),
     dialogBackgroundColor: COLOR_2,
-    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       backgroundColor: COLOR_2,
     )
     //colorScheme: ColorScheme.light(),

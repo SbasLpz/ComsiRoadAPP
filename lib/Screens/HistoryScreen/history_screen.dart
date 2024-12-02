@@ -21,7 +21,7 @@ class HistoryScreen extends StatefulWidget {
 
 class _HistoryScreenState extends State<HistoryScreen> {
 
-  /** Controllers para todos los inputs del formulario */
+  /// Controllers para todos los inputs del formulario
   TextEditingController dateInputInicio = TextEditingController();
   TextEditingController timeInputInicio = TextEditingController();
   TextEditingController dateInputFin = TextEditingController();
@@ -31,8 +31,8 @@ class _HistoryScreenState extends State<HistoryScreen> {
   void dispose() {
     /** Reset de todas las variables utlizadas cuando el usuario se sale de la pantalla */
     validManager.initDate = DateTime(2023);
-    validManager.initTime = TimeOfDay(hour: 00, minute: 00);
-    validManager.endTime = TimeOfDay(hour: 00, minute: 00);
+    validManager.initTime = const TimeOfDay(hour: 00, minute: 00);
+    validManager.endTime = const TimeOfDay(hour: 00, minute: 00);
     validManager.sameDay = false;
     validManager.previousHour = false;
     validManager.validDates = false;
@@ -53,25 +53,25 @@ class _HistoryScreenState extends State<HistoryScreen> {
 
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(20.0),
+          padding: const EdgeInsets.all(20.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Text("Historial", style: TextStyle(fontSize: 28),),
-              SizedBox(height: 12,),
+              const Text("Historial", style: TextStyle(fontSize: 28),),
+              const SizedBox(height: 12,),
               Text(
                 widget.unidad.desc!,
                 textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 18)
+                  style: const TextStyle(fontSize: 18)
               ),
-              SizedBox(height: 12,),
-              Text(
+              const SizedBox(height: 12,),
+              const Text(
                 "Establesca los rangos de inicio y fin de la ruta que desea ver.",
                 textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 16)
               ),
-              SizedBox(height: 32,),
+              const SizedBox(height: 32,),
               Container(
                 color: themeManager.isDarkMode ? COLOR_2 : Colors.redAccent,
                 width: double.maxFinite,
@@ -87,7 +87,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
               TextField(
                 controller: dateInputInicio,
                 decoration: InputDecoration(
-                    icon: Icon(Icons.calendar_today), labelText: "Fecha inicio", labelStyle: txtTheme.bodyLarge),
+                    icon: const Icon(Icons.calendar_today), labelText: "Fecha inicio", labelStyle: txtTheme.bodyLarge),
                 /** Se establce que sea en modo de solo lectura, ya que en el evento onTap
                  * en lugar de permitir la escritura se mostrara un Picker para la fecha y ese valor
                  * se asginara al TextField para mostrarlo.
@@ -104,7 +104,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                   validManager.initDate = selectedDate!;
 
                   /** Se valida que la fecha elegida sea valida y que no este vacia */
-                  if(!timeInputFin.text.isEmpty){
+                  if(timeInputFin.text.isNotEmpty){
                     fechaFin == validManager.initDate ? validManager.sameDay = true
                         : validManager.sameDay = false;
                   }
@@ -121,7 +121,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
               TextField(
                 controller: timeInputInicio,
                 decoration: InputDecoration(
-                    icon: Icon(Icons.access_time), labelText: "Hora de inicio", labelStyle: Theme.of(context).textTheme.bodyLarge),
+                    icon: const Icon(Icons.access_time), labelText: "Hora de inicio", labelStyle: Theme.of(context).textTheme.bodyLarge),
                 readOnly: true,
                 onTap: () async {
                   /** Se abre el TimePicker */
@@ -153,7 +153,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                   validManager.validar();
                 },
               ),
-              SizedBox(
+              const SizedBox(
                 height: 35,
               ),
               Container(
@@ -171,7 +171,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
               TextField(
                 controller: dateInputFin,
                 decoration: InputDecoration(
-                    icon: Icon(Icons.calendar_today), labelText: "Fecha fin", labelStyle: Theme.of(context).textTheme.bodyLarge),
+                    icon: const Icon(Icons.calendar_today), labelText: "Fecha fin", labelStyle: Theme.of(context).textTheme.bodyLarge),
                 readOnly: true,
                 onTap: () async {
                   DateTime? selectedDate = await showDatePicker(
@@ -196,7 +196,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
               TextField(
                 controller: timeInputFin,
                 decoration: InputDecoration(
-                    icon: Icon(Icons.access_time), labelText: "Hora de fin", labelStyle: Theme.of(context).textTheme.bodyLarge),
+                    icon: const Icon(Icons.access_time), labelText: "Hora de fin", labelStyle: Theme.of(context).textTheme.bodyLarge),
                 readOnly: true,
                 onTap: () async {
                   TimeOfDay? selectedTime = await showMyTimePicker(
@@ -224,11 +224,11 @@ class _HistoryScreenState extends State<HistoryScreen> {
                 style: Theme.of(context).textTheme.bodySmall!.copyWith(color: Colors.redAccent, fontWeight: FontWeight.bold),
                 textAlign: TextAlign.left,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 38,
               ),
               ElevatedButton(
-                style: ButtonStyle(backgroundColor: WidgetStatePropertyAll(Colors.redAccent)),
+                style: const ButtonStyle(backgroundColor: WidgetStatePropertyAll(Colors.redAccent)),
                   onPressed: () {
                   /** se obtiene el ID de la unidad que viene desde la pantalla del Mapa */
                     final idUnidad = widget.unidad.id;
@@ -247,9 +247,9 @@ class _HistoryScreenState extends State<HistoryScreen> {
                       //print("Inicio: ${fechaInicio}, ${horaInicio}; Fin: ${fechaFin}, ${horaFin} ");
                     }
                   },
-                  child: Text("Ver recorrido", style: TextStyle(color: Colors.white, fontSize: 16),)
+                  child: const Text("Ver recorrido", style: TextStyle(color: Colors.white, fontSize: 16),)
               ),
-              SizedBox(
+              const SizedBox(
                 height: 50,
               ),
             ],
