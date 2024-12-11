@@ -70,7 +70,7 @@ class _UnitsScreenState extends State<UnitsScreen> {
                 padding: const EdgeInsets.all(15.0),
                 child: Column(
                   children: [
-                    const SizedBox(height: 20,),
+                    const SizedBox(height: 32,),
                     SearchBar(
                       controller: searchController,
                       hintText: "Buscar unidad...",
@@ -84,7 +84,7 @@ class _UnitsScreenState extends State<UnitsScreen> {
                     ),
                     Row(
                       children: [
-                        const Text("Seleccionar todas: "),
+                        const Text("Seleccionar todas: ", style:TextStyle(color: Colors.white),),
                         Checkbox(
                             value: unitsManager.isChecked,
                             /** Metodo que asigna true o false a variable que controla la seleccion de todas las unidades.
@@ -96,7 +96,18 @@ class _UnitsScreenState extends State<UnitsScreen> {
                                 unitsManager.quitarSelectedUnits();
                               }
                             }
-                        )
+                        ),
+                        SizedBox(width: 25,),
+                        IconButton(
+                          onPressed: () {
+                            searchController.text = "";
+                            unitsManager.resetSearchText();
+                            //idsManager.quitarSelecteds();
+                            unitsManager.isChecked = false;
+                            unitsManager.quitarSelecteds();
+                            print("Presione RESET icon");},
+                          icon: Icon(Icons.refresh),
+                        ),
                       ],
                     ),
                     const SizedBox(height: 10,),
@@ -111,7 +122,7 @@ class _UnitsScreenState extends State<UnitsScreen> {
                         leading: Icon(Icons.map_outlined),
                       ),
                     ),
-                    const SizedBox(height: 20,),
+                    const SizedBox(height: 5,),
                     Expanded(
                         child: FutureBuilder(
                             future: myUnitsPost,

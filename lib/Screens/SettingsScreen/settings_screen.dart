@@ -1,6 +1,8 @@
 import 'package:app_rutas_comsi/Screens/HistoryScreen/history_screen.dart';
 import 'package:app_rutas_comsi/Styles/theme_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../Styles/theme.dart';
 
@@ -51,14 +53,25 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       }
                   ),
                   const SizedBox(height: 30,),
-                  const Padding(
+                  Padding(
                     padding: EdgeInsets.fromLTRB(15.0, 0, 0, 0),
-                    child: Text("Cerrar sesión", style: TextStyle(fontSize: 18, )),
+                    child: InkWell(
+                        child: Text("Cerrar sesión", style: TextStyle(fontSize: 18, )),
+                      onTap: () {
+                          SystemNavigator.pop();
+                      },
+                    ),
                   ),
                   const SizedBox(height: 40,),
-                  const Padding(
+                  Padding(
                     padding: EdgeInsets.fromLTRB(15.0, 0, 0, 0),
-                    child: Text("Terminos de acuerdos y condiciones.", style: TextStyle(fontSize: 18, )),
+                    child: InkWell(
+                        child: Text("Terminos de acuerdos y condiciones.", style: TextStyle(fontSize: 18, )),
+                      onTap: () async {
+                          var url = Uri.parse("http://comsigps.com/privacy.html");
+                          _launchUrl(url);
+                      },
+                    ),
                   ),
                   const SizedBox(height: 100,),
                 ],

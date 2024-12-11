@@ -67,6 +67,15 @@ class UnitsManager extends ChangeNotifier {
     notifyListeners();
   }
 
+  resetSearchText() {
+    units = allUnits;
+  }
+
+  void quitarSelecteds() {
+    selectedIds = {};
+    selectedIds.clear();
+    notifyListeners();
+  }
   // resetSearchText() {
   //   units = allUnits;
   // }
